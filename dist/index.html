@@ -4,58 +4,7 @@
   <title>Push Data to Cloud Firestore</title>
   <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
-  <script>
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "firebase/app";
-    import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyAwFhY16WbjZ2kjnxk7U8gH6G3xEYEYwk8",
-  authDomain: "pbbapp-3cda1.firebaseapp.com",
-  databaseURL: "https://pbbapp-3cda1-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "pbbapp-3cda1",
-  storageBucket: "pbbapp-3cda1.appspot.com",
-  messagingSenderId: "248758143610",
-  appId: "1:248758143610:web:37bd5b05082b7cac1e09c3",
-  measurementId: "G-NJEBDSWJYC"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-
-    // Get a reference to the Cloud Firestore database
-    var db = firebase.firestore();
-
-    function pushData() {
-      // Get the data from the form
-      var name = document.getElementById("name").value;
-      var age = document.getElementById("age").value;
-      var occupation = document.getElementById("occupation").value;
-      alert("Post added successfully!");
-      // Add the data to the "people" collection in the database
-      db.collection("people").add({
-          name: name,
-          age: age,
-          occupation: occupation
-        })
-        .then(function(docRef) {
-          console.log("Document written with ID: ", docRef.id);
-          
-          // Reset the form
-          document.getElementById("myForm").reset();
-        })
-        .catch(function(error) {
-          console.error("Error adding document: ", error);
-        });
-    }
-  </script>
 </head>
 <body>
   <h1>Push Data to Cloud Firestore</h1>
@@ -73,3 +22,57 @@ const analytics = getAnalytics(app);
   </form>
 </body>
 </html>
+
+
+<script>
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "firebase/app";
+  import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+apiKey: "AIzaSyAwFhY16WbjZ2kjnxk7U8gH6G3xEYEYwk8",
+authDomain: "pbbapp-3cda1.firebaseapp.com",
+databaseURL: "https://pbbapp-3cda1-default-rtdb.asia-southeast1.firebasedatabase.app",
+projectId: "pbbapp-3cda1",
+storageBucket: "pbbapp-3cda1.appspot.com",
+messagingSenderId: "248758143610",
+appId: "1:248758143610:web:37bd5b05082b7cac1e09c3",
+measurementId: "G-NJEBDSWJYC"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  // Get a reference to the Cloud Firestore database
+  var db = firebase.firestore();
+
+  function pushData() {
+    // Get the data from the form
+    var name = document.getElementById("name").value;
+    var age = document.getElementById("age").value;
+    var occupation = document.getElementById("occupation").value;
+    alert("Post added successfully!");
+    // Add the data to the "people" collection in the database
+    db.collection("people").add({
+        name: name,
+        age: age,
+        occupation: occupation
+      })
+      .then(function(docRef) {
+        console.log("Document written with ID: ", docRef.id);
+        
+        // Reset the form
+        document.getElementById("myForm").reset();
+      })
+      .catch(function(error) {
+        console.error("Error adding document: ", error);
+      });
+  }
+</script>

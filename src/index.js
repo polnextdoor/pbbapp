@@ -1,12 +1,7 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-analytics.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore.js";
+
 const firebaseConfig = {
   apiKey: "AIzaSyAwFhY16WbjZ2kjnxk7U8gH6G3xEYEYwk8",
   authDomain: "pbbapp-3cda1.firebaseapp.com",
@@ -19,6 +14,45 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-console.log(app);
 
+// Get a reference to the Firestore database
+const db = getFirestore(app);
+
+// Get references to the HTML form and its elements
+const form = document.querySelector('form');
+const titleInput = document.getElementById('title');
+const contentInput = document.getElementById('content');
+const submitButton = document.getElementById('submit');
+
+// Add an event listener to the submit button
+submitButton.addEventListener('click', async (e) => {
+  e.preventDefault();
+  
+  // Get the values from the form
+  const title = titleInput.value;
+  const content = contentInput.value;
+  
+  // Create a new post object
+  const post = {
+    title,
+    content,
+    timestamp: new Date()
+  };
+  
+  try {
+    // Add the post to Firestore
+    const docRef = await addDoc(collection(db, 'post'), post);
+    
+    // Log the document ID for debugging purposes
+    console.log(`Document written with ID: ${docRef.id}`);
+    
+    // Display a success message
+    alert('Post added successfully!');
+    
+    // Clear the form inputs
+    titleInput.value = '';
+    contentInput.value = '';
+  } catch (error) {
+    console.error('Error adding document: ', error);
+  }
+});
